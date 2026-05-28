@@ -254,6 +254,15 @@ const pills=new Set();
 const chips=new Set();
 let matchAllLanguages=false; // false = OR (any), true = AND (all)
 
+function syncOrgCountDisplays(){
+  const total = ORGS.length;
+  const countTargets = ['heroOrgCount', 'totalOrgsStat', 'orgTotalCount', 'guideOrgCount'];
+  for(const id of countTargets){
+    const node = document.getElementById(id);
+    if(node) node.textContent = total;
+  }
+}
+
 // Expose to global scope for HTML onclick handlers and debugging
 globalThis.pills = pills;
 globalThis.matchAllLanguages = matchAllLanguages;
@@ -1356,6 +1365,7 @@ function showMoreIssues(){
 }
 
 ORGS.forEach(o=>{if(o.github&&cache[o.github])o._gh=cache[o.github];});
+syncOrgCountDisplays();
 showSkeletons();
 updateStats();
 renderSelectedLanguages();
